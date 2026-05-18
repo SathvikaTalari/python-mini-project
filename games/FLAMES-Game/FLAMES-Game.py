@@ -67,7 +67,6 @@ def main():
             'E': {"rel": "Enemies", "emoji": "😈", "metric": "Rivalry Quotient"},
             'S': {"rel": "Siblings", "emoji": "🏠", "metric": "Nuisance Factor"}
         }
-
         final = mapping[result]
 
         print("\n" + "=" * 50)
@@ -77,7 +76,6 @@ def main():
         print(f"Status: {final['emoji']} {final['rel'].upper()} {final['emoji']}")
         print(f"{final['metric']}: {score}%")
         print("\n" + "=" * 50)
-
         share_text = (f"✨ FLAMES Match Report ✨\n"
                       f"{original_name1.capitalize()} + {original_name2.capitalize()}\n"
                       f"Result: {final['rel']} {final['emoji']}\n"
