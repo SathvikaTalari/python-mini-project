@@ -210,12 +210,13 @@ bestDisplay.textContent = bestScore;
                 tile.textContent =
                     cell !== 0 ? cell : "";
 
-                tile.style.background =
-                    getTileColor(cell);
+                tile.style.background = getTileColor(cell);
 
-                if(cell > 4) {
-                    tile.style.color = "var(--on-accent)";
-                }
+        if(cell <= 4) {
+                tile.style.color = "#776e65";
+        } else {
+                tile.style.color = "var(--on-accent)";
+        }
 
                 gridContainer.appendChild(tile);
             });
