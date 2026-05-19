@@ -4,8 +4,8 @@ This folder contains practical Python mini-tools and utility-based projects such
 
 ## Projects in `utilities/`
 
-- AI RESUME ANALYZER (NLP VERSION)
-- FakeNewsHeadlineGenerator
+- AI-Resume-Analyzer
+- Fake-News-Headline-Generator
 - Number-System-Converter
 - Productivity-Pet
 - Text-to-Morse
