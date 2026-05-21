@@ -991,17 +991,7 @@
             </div>
         </section>
 
-        <section class="playground-section" id="playgroundSection" aria-label="Python Playground">
-            <div class="container">
-                <div class="playground-header">
-                    <div class="playground-title-row">
-                        <h2 class="playground-title">🐍 Python Playground</h2>
-                        <div class="playground-status" id="playgroundStatus" aria-live="polite">
-                            <span class="status-dot" id="statusDot"></span><span id="statusText">Open tab to load Python</span>
-                        </div>
-                    </div>
-                    <p class="playground-subtitle">Write and run real Python code in your browser — powered by <a href="https://pyodide.org" target="_blank" rel="noopener noreferrer">Pyodide</a>.</p>
-                </div>
+        
 
                 <div class="playground-body">
                     <div class="editor-panel">
@@ -1061,6 +1051,7 @@
                         <li><a href="#main-content" onclick="document.querySelector('[data-category=\'math\']').click()">Math</a></li>
                         <li><a href="#main-content" onclick="document.querySelector('[data-category=\'utilities\']').click()">Utilities</a></li>
                         <li><a href="#main-content" onclick="document.querySelector('[data-category=\'favorites\']').click()">Favorites</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="#main-content" onclick="document.querySelector('[data-category=\'playground\']').click()">Playground</a></li>
                     </ul>
                 </div>
@@ -1083,7 +1074,7 @@
             </div>
             <div class="footer-bottom">
                 <div class="footer-bottom-links">
-                    <a href="./privacy-policy.html">Privacy Policy</a><span class="separator">•</span><a href="#">Terms of Service</a>
+                    <a href="./privacy-policy.html">Privacy Policy</a><span class="separator">•</span><a href="faq.html">FAQ</a><span class="separator">•</span><a href="#">Terms of Service</a>
                 </div>
                 <p>Made with ❤️ for Python learners everywhere &copy; 2026</p>
             </div>
@@ -1177,6 +1168,15 @@
             mobileMenuToggle.querySelector("i").className = "fas fa-bars";
         }
     });
-    </script>
+
+document.querySelectorAll('.tab, .sticky-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        searchInput.value = '';
+    });
+});
+
+
+</script>
+
 </body>
 </html>
