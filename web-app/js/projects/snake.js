@@ -192,6 +192,9 @@ const CONFIG_DIFFICULTY = {
 };
 
 function main(ctime) {
+    const canvas = document.getElementById('snakeCanvas');
+    if (!canvas) return; // Exit loop if the game modal has been closed
+    
     window.requestAnimationFrame(main);
     if ((ctime - lastPaintTime) / 1000 < 1 / speed) {
         return;
@@ -286,6 +289,18 @@ function gameEngine() {
     ctx.fillRect(food.x * 20, food.y * 20, 18, 18);
 }
 
+function restartGame() {
+    const selector = document.getElementById('difficultySelect');
+    applyDifficultySettings();
+    if (selector) selector.disabled = true;
+    document.getElementById('game-over-overlay').classList.add('hidden');
+    direction = { x: 1, y: 0 };
+    snakeArr = [{ x: 13, y: 10 }];
+    score = 0;
+    document.getElementById('score').innerHTML = score;
+    food = { x: 6, y: 7 };
+}
+
 // Initialize execution listeners
 function initSnakeGame() {
     window.requestAnimationFrame(main);
@@ -333,6 +348,7 @@ function initSnakeGame() {
         applyDifficultySettings();
         // Prevent changing parameter matrices on an active engine run
         if (selector) selector.disabled = true;
+        document.getElementById('game-over-overlay').classList.add('hidden');
         direction = { x: 1, y: 0 }; // Start moving right
     });
 
