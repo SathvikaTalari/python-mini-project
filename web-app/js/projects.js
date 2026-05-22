@@ -1,20 +1,15 @@
-// Project Registry
+﻿// Project Registry
 // Each project's HTML and logic lives in its own file under js/projects/
 
 
 function getProjectHTML(projectName) {
     const projects = {
-        'tic-tac-toe': () => getTicTacToeHTML(),
-
         'rock-paper-scissor': () => getRockPaperScissorHTML(),
         'dice-rolling': () => getDiceRollingHTML(),
         'coin-flip': () => getCoinFlipHTML(),
-        'Blackjack-21': () => getBlackjackHTML(),
         'number-guessing': () => getNumberGuessingHTML(),
         'hangman': () => getHangmanHTML(),
-        'word-scramble': () => getWordScrambleHTML(),
         'flames': () => getFlamesHTML(),
-        'dots-boxes': () => getDotsBoxesHTML(),
         'emoji-memory': () => getEmojiMemoryGameHTML(),
         'fibonacci': () => getFibonacciHTML(),
         'progression-recognizer': () => getProgressionRecognizerHTML(),
@@ -32,13 +27,17 @@ function getProjectHTML(projectName) {
         'typing-speed-tester': () => getTypingSpeedTesterHTML(),
         'snake-game': () => getSnakeGameHTML(),
         'password-forge': () => getPasswordForgeHTML(),
-        'math-quiz': () => getMathQuizHTML(),
         'whack-a-mole': () => getWhackaMoleHTML(),
+        'tic-tac-toe': () => getTicTacToeHTML(),
+        'blackjack-21': () => getBlackjackHTML(),
+        'word-scramble': () => getWordScrambleHTML(),
+        'dots-boxes': () => getDotsBoxesHTML(),
+        'math-quiz': () => getMathQuizHTML(),
         'simon-says': () => getSimonSaysHTML(),
         'spot-the-difference': () => getSpotTheDifferenceHTML(),
         'flappy-game': () => getFlappyGameHTML(),
         '2048-game': () => get2048GameHTML(),
-        "productive-pet": () => getProductivePetHTML(),
+        'productive-pet': () => getProductivePetHTML(),
         'color-palette': () => getColorPaletteHTML(),
     };
 
