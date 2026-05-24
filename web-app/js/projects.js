@@ -1183,6 +1183,110 @@ function initFlames() {
         `;
     }
 
+    
+    function showSequence() {
+        isPlayingSequence = true;
+        disableButtons(true);
+        displayContent.textContent = "Watch the sequence...";
+        
+        let i = 0;
+        const playNextEmoji = () => {
+            if (i < sequence.length) {
+                const emoji = sequence[i];
+                const button = Array.from(emojiButtons).find(btn => btn.dataset.emoji === emoji);
+                
+                if (button) {
+                    button.classList.add('active');
+                    setTimeout(() => {
+                        button.classList.remove('active');
+                        i++;
+                        setTimeout(playNextEmoji, 500);
+                    }, 600);
+                }
+            } else {
+                isPlayingSequence = false;
+                disableButtons(false);
+                userSequence = [];
+                gameActive = true;
+                displayContent.textContent = "Your turn! Click the emojis...";
+                instructionsDiv.textContent = `👆 Repeat the sequence (${sequence.length} steps)`;
+            }
+        };
+        
+        playNextEmoji();
+    }
+    
+    function startNewRound() {
+        const newEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+        sequence.push(newEmoji);
+        userSequence = [];
+        
+        sequenceLengthDisplay.textContent = sequence.length;
+        setTimeout(showSequence, 500);
+    }
+    
+    function handleEmojiClick(emoji, button) {
+        if (isPlayingSequence || !gameActive) return;
+        
+        userSequence.push(emoji);
+        button.classList.add('active');
+        
+        setTimeout(() => {
+            button.classList.remove('active');
+        }, 300);
+        
+        // Check if the emoji matches
+        if (userSequence[userSequence.length - 1] !== sequence[userSequence.length - 1]) {
+            gameOver();
+            return;
+        }
+        
+        // Check if the entire sequence is correct
+        if (userSequence.length === sequence.length) {
+            score += level * 10;
+            scoreDisplay.textContent = score;
+            level++;
+            levelDisplay.textContent = level;
+            
+            instructionsDiv.textContent = "✅ Correct! Get ready for the next round...";
+            gameActive = false;
+            setTimeout(startNewRound, 1500);
+        }
+    }
+    
+    function gameOver() {
+        gameActive = false;
+        disableButtons(true);
+        instructionsDiv.textContent = `❌ Game Over! You reached Level ${level} with Score: ${score}`;
+        displayContent.textContent = `Final Score: ${score}`;
+        startBtn.textContent = "▶️ PLAY AGAIN";
+    }
+    
+    function resetGame() {
+        sequence = [];
+        userSequence = [];
+        score = 0;
+        level = 1;
+        gameActive = false;
+        isPlayingSequence = false;
+        
+        scoreDisplay.textContent = '0';
+        levelDisplay.textContent = '1';
+        sequenceLengthDisplay.textContent = '0';
+        instructionsDiv.textContent = "👇 Click START to begin the game!";
+        displayContent.textContent = "Ready to test your memory?";
+        startBtn.textContent = "▶️ START";
+        
+        disableButtons(true);
+    }
+    
+    startBtn.addEventListener('click', () => {
+        resetGame();
+        gameActive = true;
+        instructionsDiv.textContent = "Watch the sequence...";
+        startNewRound();
+    });
+
     calculateBtn.addEventListener('click', calculateFlames);
     name1Input.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') calculateFlames();
@@ -1503,15 +1607,15 @@ function initCollatz() {
     generateSequence();
 }
 
-function getArmstrongHTML() { 
+function getArmstrongHTML() {
     return `
         <div class="project-content">
             <h2>💎 Armstrong Number Checker</h2>
             <p class="project-desc">Check if a number equals the sum of its digits raised to the power of the number of digits</p>
             <div class="armstrong-container">
                 <div class="input-section">
-                    <input type="number" id="armstrongNumber" placeholder="Enter a number" min="0">
-                    <button class="btn-check" id="checkArmstrong">💎 Check</button>
+                    <input type="number" class="number-input" id="armstrongNumber" placeholder="Enter a number" min="0">
+                    <button class="btn-primary" id="checkArmstrong">💎 Check</button>
                 </div>
                 
                 <div class="result-display" id="armstrongResult"></div>
@@ -1641,10 +1745,52 @@ function getArmstrongHTML() {
                 border-color: var(--primary-color);
                 transform: translateY(-2px);
             }
+
+            /* --- NEW STANDARDIZED INPUT STYLES --- */
+            .input-section {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .number-input {
+                width: 60%;
+                padding: 0.8rem 1.2rem;
+                border-radius: 10px;
+                border: 2px solid var(--border-color);
+                font-size: 1.1rem;
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                transition: var(--transition);
+            }
+
+            .number-input:focus {
+                outline: none;
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.2);
+            }
+
+            .btn-primary {
+                padding: 0.8rem 1.5rem;
+                border: none;
+                border-radius: 10px;
+                background: var(--primary-color);
+                color: white;
+                cursor: pointer;
+                font-size: 1.1rem;
+                font-weight: bold;
+                transition: var(--transition);
+            }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            }
         </style>
     `;
 }
-
 function initArmstrong() {
     const numberInput = document.getElementById('armstrongNumber');
     const checkBtn = document.getElementById('checkArmstrong');
