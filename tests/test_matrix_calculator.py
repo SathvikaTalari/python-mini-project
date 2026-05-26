@@ -5,15 +5,23 @@ import sys
 
 class TestMatrixCalculator(unittest.TestCase):
     def setUp(self):
-        self.script_path = os.path.join("math", "Matrix-Calculator", "Matrix-Calculator.py")
+        self.script_path = os.path.join(
+            os.path.dirname(__file__), "..",
+            "math", "Matrix-Calculator", "Matrix-Calculator.py"
+        )
+        self.script_path = os.path.abspath(self.script_path)
 
     def run_script_with_input(self, user_input):
+        env = os.environ.copy()
+        env["PYTHONIOENCODING"] = "utf-8"
         process = subprocess.Popen(
             [sys.executable, self.script_path],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
+            encoding='utf-8',
+            env=env
         )
         stdout, stderr = process.communicate(input=user_input)
         return stdout, stderr
